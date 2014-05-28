@@ -21,16 +21,25 @@
       <div class="col-md-10">
         <!--Body content-->
 
-        <ul class="phones">
-          <li ng-repeat="phone in phones | filter:query">
-            {{phone.name}}
-            <p>{{phone.snippet}}</p>
-          </li>
-        </ul>
+        <script type="text/ng-template"  id="tree_item_renderer.html">
+            {{node.item}}
+            <ul>
+                <li ng-repeat="node in node.subs | filter:query" ng-include="'tree_item_renderer.html'"></li>
+            </ul>
+        </script>
+
+          <ul class="nodes">
+              <li ng-repeat="node in nodes | filter:query" ng-include="'tree_item_renderer.html'"></li>
+          </ul>
 
       </div>
     </div>
   </div>
+
+
+<ul ng-app="Application" ng-controller="TreeController">
+    <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
+</ul>
 
 </body>
 </html>
